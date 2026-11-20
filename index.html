@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAM - Sadira Ali Matdoan & Partners. International and National Legal Consultant for Litigation and Non-Litigation Matters in Indonesia.">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>SAM | Sadira Ali Matdoan & Partners — Legal Consultant</title>
+
+    <!-- Google Fonts: Playfair Display (Authoritative Serif) & Plus Jakarta Sans (Clean Modern Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Custom Theme Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1E293B',
+                            900: '#0F172A',
+                            950: '#090E1A',
+                        },
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#C59B27',
+                            600: '#A67F1A',
+                            100: '#FAF3DF',
+                        },
+                        offwhite: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Subtle architectural grid pattern for legal authority aesthetic */
+        .bg-legal-grid {
+            background-image: radial-gradient(rgba(197, 155, 39, 0.12) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        /* Smooth accordion transition */
+        .accordion-content {
+            transition: max-height 0.3s ease-out, opacity 0.25s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+            opacity: 1;
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-offwhite text-slate-800 font-sans antialiased selection:bg-gold-500 selection:text-white">
+
+    <!-- =====================================================================
+         1. STICKY MINIMALIST NAVBAR
+    ====================================================================== -->
+    <header class="sticky top-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-slate-800 text-white transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="w-11 h-11 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-serif font-bold text-xl tracking-wider shadow-md group-hover:scale-105 transition-transform">
+                        SAM
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif font-bold text-sm sm:text-base tracking-wide text-white leading-tight">
+                            SADIRA ALI MATDOAN
+                        </span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-gold-400 font-semibold">
+                            &amp; Partners • Law Firm
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+                    <a href="#about" data-i18n="nav_about" class="hover:text-gold-400 transition-colors">Our Team</a>
+                    <a href="#why-us" data-i18n="nav_why" class="hover:text-gold-400 transition-colors">Why Choose Us</a>
+                    <a href="#services" data-i18n="nav_services" class="hover:text-gold-400 transition-colors">Practice Areas</a>
+                    <a href="#workflow" data-i18n="nav_workflow" class="hover:text-gold-400 transition-colors">How We Work</a>
+                    <a href="#faq" data-i18n="nav_faq" class="hover:text-gold-400 transition-colors">FAQ</a>
+                    <a href="#contact" data-i18n="nav_contact" class="hover:text-gold-400 transition-colors">Contact</a>
+                </nav>
+
+                <!-- Right Actions: Bilingual Switcher + Primary CTA -->
+                <div class="hidden sm:flex items-center gap-4">
+                    <!-- Language Toggle Pill -->
+                    <div class="flex items-center bg-navy-950 border border-slate-700 rounded-full p-1 text-xs font-semibold" role="group" aria-label="Language Switcher">
+                        <button type="button" id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded-full bg-gold-500 text-navy-950 transition-all cursor-pointer">
+                            EN
+                        </button>
+                        <button type="button" id="btn-lang-id" onclick="setLanguage('id')" class="px-2.5 py-1 rounded-full text-slate-300 hover:text-white transition-all cursor-pointer">
+                            ID
+                        </button>
+                    </div>
+
+                    <a href="#consultation" data-i18n="nav_cta" class="px-4 py-2.5 rounded-lg bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold text-sm transition-all shadow-sm hover:shadow-md">
+                        Book Consultation
+                    </a>
+                </div>
+
+                <!-- Mobile Controls -->
+                <div class="flex items-center gap-2 lg:hidden">
+                    <!-- Compact Mobile Language Switcher -->
+                    <div class="flex sm:hidden items-center bg-navy-950 border border-slate-700 rounded-full p-0.5 text-[11px] font-semibold">
+                        <button type="button" id="btn-lang-en-mob" onclick="setLanguage('en')" class="px-2 py-0.5 rounded-full bg-gold-500 text-navy-950">EN</button>
+                        <button type="button" id="btn-lang-id-mob" onclick="setLanguage('id')" class="px-2 py-0.5 rounded-full text-slate-300">ID</button>
+                    </div>
+
+                    <button type="button" id="mobile-menu-btn" aria-label="Toggle Menu" class="p-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-navy-950 border-t border-slate-800 px-4 pt-3 pb-6 space-y-2">
+            <a href="#about" data-i18n="nav_about" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-gold-400">Our Team</a>
+            <a href="#why-us" data-i18n="nav_why" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-gold-400">Why Choose Us</a>
+            <a href="#services" data-i18n="nav_services" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-gold-400">Practice Areas</a>
+            <a href="#workflow" data-i18n="nav_workflow" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-gold-400">How We Work</a>
+            <a href="#faq" data-i18n="nav_faq" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-gold-400">FAQ</a>
+            <a href="#contact" data-i18n="nav_contact" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-gold-400">Contact</a>
+            <div class="pt-2">
+                <a href="#consultation" data-i18n="hero_cta_primary" class="mobile-link block w-full text-center px-4 py-3 rounded-lg bg-gold-500 text-navy-950 font-bold text-sm">
+                    Book A Legal Consultant
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         2. HERO SECTION
+    ====================================================================== -->
+    <section class="relative bg-navy-900 bg-legal-grid text-white overflow-hidden pt-14 pb-20 lg:pt-24 lg:pb-28">
+        <!-- Ambient Radial Accent -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl">
+                <!-- Firm Classification Pill -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-800/90 border border-gold-500/30 text-gold-400 text-xs sm:text-sm font-semibold tracking-wide mb-6">
+                    <i data-lucide="scale" class="w-4 h-4"></i>
+                    <span data-i18n="hero_badge">INTERNATIONAL &amp; NATIONAL LEGAL CONSULTANT</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 data-i18n="hero_headline" class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.18] tracking-tight mb-6">
+                    Facing a complex legal challenge in Indonesia? Whether as a local citizen or an expat — where do you turn for total protection and reliable solutions?
+                </h1>
+
+                <!-- Sub Headline -->
+                <p data-i18n="hero_subheadline" class="text-lg sm:text-xl text-gold-400 font-medium leading-relaxed mb-5">
+                    A modern law firm handling dispute resolution (Litigation) and strategic legal counsel (Non-Litigation) for individuals, expatriates, and multinational businesses in Indonesia.
+                </p>
+
+                <!-- Body Copy -->
+                <p data-i18n="hero_body" class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl mb-9">
+                    Our firm is your comprehensive legal partner, equipped to handle all spectrums of legal matters for both domestic and international clients. From corporate disputes and commercial contracts to immigration and foreign citizen affairs, we deliver strategic, unwavering representation to safeguard your rights and interests every step of the way.
+                </p>
+
+                <!-- Dual CTAs -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-12">
+                    <a href="#consultation" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold text-base transition-all shadow-lg shadow-gold-500/20">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                        <span data-i18n="hero_cta_primary">Book A Legal Consultant</span>
+                    </a>
+                    <a href="#services" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-navy-800 hover:bg-slate-800 border border-slate-700 text-white font-semibold text-base transition-all">
+                        <span data-i18n="hero_cta_secondary">Explore Our Services</span>
+                        <i data-lucide="arrow-down-right" class="w-5 h-5 text-gold-400"></i>
+                    </a>
+                </div>
+
+                <!-- 3 Trust Badges / Key Highlights -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-slate-800">
+                    <div class="flex items-start gap-3 bg-navy-950/60 p-4 rounded-xl border border-slate-800/80">
+                        <div class="p-1.5 rounded-lg bg-gold-500/15 text-gold-400 shrink-0 mt-0.5">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </div>
+                        <span data-i18n="trust_1" class="text-sm font-medium text-slate-200 leading-snug">
+                            Bilingual Representation (Bahasa Indonesia &amp; English)
+                        </span>
+                    </div>
+
+                    <div class="flex items-start gap-3 bg-navy-950/60 p-4 rounded-xl border border-slate-800/80">
+                        <div class="p-1.5 rounded-lg bg-gold-500/15 text-gold-400 shrink-0 mt-0.5">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </div>
+                        <span data-i18n="trust_2" class="text-sm font-medium text-slate-200 leading-snug">
+                            Integrated Litigation &amp; Non-Litigation Services
+                        </span>
+                    </div>
+
+                    <div class="flex items-start gap-3 bg-navy-950/60 p-4 rounded-xl border border-slate-800/80">
+                        <div class="p-1.5 rounded-lg bg-gold-500/15 text-gold-400 shrink-0 mt-0.5">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                        </div>
+                        <span data-i18n="trust_3" class="text-sm font-medium text-slate-200 leading-snug">
+                            Strict Client Confidentiality
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         3. MEET OUR LEGAL TEAM & OUR COMMITMENTS
+    ====================================================================== -->
+    <section id="about" class="py-16 lg:py-24 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                <!-- Left Column: Visual Profile Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl overflow-hidden bg-navy-900 shadow-xl border border-slate-200">
+                        <img
+                            src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
+                            alt="SAM Legal Advocates & Partners"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x600/0F172A/C59B27?text=SAM+Legal+Advocates';"
+                            class="w-full h-80 sm:h-96 object-cover opacity-85"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-gold-500 text-navy-950 text-xs font-bold uppercase tracking-wider mb-2">
+                                PERADI Licensed Advocates
+                            </div>
+                            <h3 class="font-serif text-xl font-bold">Sadira Ali Matdoan &amp; Partners</h3>
+                            <p data-i18n="team_caption" class="text-xs sm:text-sm text-slate-300 mt-1">
+                                Domestic Courtroom Excellence &amp; Cross-Border Counsel
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Team Narrative & Commitment Box -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div>
+                        <span data-i18n="team_eyebrow" class="text-gold-600 font-bold text-xs uppercase tracking-[0.18em]">
+                            DEDICATED COUNSEL
+                        </span>
+                        <h2 data-i18n="team_title" class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 mt-2">
+                            Meet Our Legal Team
+                        </h2>
+                    </div>
+
+                    <p data-i18n="team_desc" class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                        Our advocates combine deep courtroom experience in Indonesia with clear, international-standard communication to protect your interests at every stage.
+                    </p>
+
+                    <!-- Our Commitments Highlight Card -->
+                    <div class="bg-offwhite border-l-4 border-gold-500 rounded-r-2xl p-6 sm:p-8 shadow-sm">
+                        <div class="flex items-center gap-2.5 text-navy-900 font-bold text-base mb-3">
+                            <i data-lucide="award" class="w-5 h-5 text-gold-600"></i>
+                            <span data-i18n="commitment_title">Our Commitments</span>
+                        </div>
+                        <blockquote data-i18n="commitment_quote" class="text-slate-700 italic text-base sm:text-lg leading-relaxed">
+                            "Every case is handled directly by licensed advocates, never passed off without oversight. We combine thorough legal research with honest risk assessments so you know where you stand before making any decision."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         4. WHY CHOOSE US? (MOTTO & DUAL-AUDIENCE MATRIX)
+    ====================================================================== -->
+    <section id="why-us" class="py-16 lg:py-24 bg-offwhite">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header & Motto -->
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span data-i18n="why_eyebrow" class="text-gold-600 font-bold text-xs uppercase tracking-[0.18em]">
+                    OUR ADVANTAGES
+                </span>
+                <h2 data-i18n="why_title" class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 mt-2 mb-4">
+                    Why Choose Us?
+                </h2>
+
+                <!-- Motto Banner -->
+                <div class="inline-block px-5 py-2.5 rounded-xl bg-navy-900 text-gold-400 font-serif italic text-base sm:text-lg shadow-sm mb-5">
+                    “<span data-i18n="why_motto">Bridging Legal Certainty Across Jurisdiction</span>”
+                </div>
+
+                <p data-i18n="why_desc" class="text-slate-600 text-base leading-relaxed">
+                    Navigating legal matters in Indonesia, whether as a local citizen or a foreign national, requires precise strategy and a deep understanding of domestic regulations alongside international standards. We deliver clear, measurable, and results-driven legal solutions.
+                </p>
+            </div>
+
+            <!-- Responsive Comparison Table / Cards -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <!-- Desktop Table Header -->
+                <div class="hidden md:grid md:grid-cols-12 bg-navy-900 text-white font-semibold text-sm">
+                    <div class="col-span-3 p-5 border-r border-slate-800 flex items-center gap-2 text-gold-400">
+                        <i data-lucide="layers" class="w-4 h-4"></i>
+                        <span data-i18n="tbl_col_1">Advantage Pillar</span>
+                    </div>
+                    <div class="col-span-4.5 md:col-span-4 p-5 border-r border-slate-800 flex items-center gap-2">
+                        <i data-lucide="building-2" class="w-4 h-4 text-gold-400"></i>
+                        <span data-i18n="tbl_col_2">For Indonesian Citizens &amp; Local Businesses</span>
+                    </div>
+                    <div class="col-span-4.5 md:col-span-5 p-5 flex items-center gap-2">
+                        <i data-lucide="globe" class="w-4 h-4 text-gold-400"></i>
+                        <span data-i18n="tbl_col_3">For Foreign Nationals &amp; Expatriates</span>
+                    </div>
+                </div>
+
+                <!-- Row 1: Language & Clarity -->
+                <div class="grid grid-cols-1 md:grid-cols-12 border-b border-slate-200 hover:bg-slate-50/80 transition-colors">
+                    <div class="md:col-span-3 p-5 bg-slate-50 md:bg-transparent border-b md:border-b-0 md:border-r border-slate-200 font-bold text-navy-900 flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-gold-100 text-gold-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="languages" class="w-4 h-4"></i>
+                        </span>
+                        <span data-i18n="row1_title">Language &amp; Clarity</span>
+                    </div>
+                    <div class="md:col-span-4 p-5 border-b md:border-b-0 md:border-r border-slate-200">
+                        <span class="md:hidden block text-xs font-bold uppercase text-gold-600 mb-1" data-i18n="tbl_col_2">For Indonesian Citizens &amp; Local Businesses</span>
+                        <p data-i18n="row1_local" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Clear, practical legal guidance without confusing legalese.
+                        </p>
+                    </div>
+                    <div class="md:col-span-5 p-5">
+                        <span class="md:hidden block text-xs font-bold uppercase text-gold-600 mb-1" data-i18n="tbl_col_3">For Foreign Nationals &amp; Expatriates</span>
+                        <p data-i18n="row1_expat" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Fluent English communication paired with clear Indonesian legal context.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Row 2: Dual Approach -->
+                <div class="grid grid-cols-1 md:grid-cols-12 border-b border-slate-200 hover:bg-slate-50/80 transition-colors">
+                    <div class="md:col-span-3 p-5 bg-slate-50 md:bg-transparent border-b md:border-b-0 md:border-r border-slate-200 font-bold text-navy-900 flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-gold-100 text-gold-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="shield" class="w-4 h-4"></i>
+                        </span>
+                        <span data-i18n="row2_title">Dual Approach</span>
+                    </div>
+                    <div class="md:col-span-4 p-5 border-b md:border-b-0 md:border-r border-slate-200">
+                        <span class="md:hidden block text-xs font-bold uppercase text-gold-600 mb-1" data-i18n="tbl_col_2">For Indonesian Citizens &amp; Local Businesses</span>
+                        <p data-i18n="row2_local" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Proactive business risk mitigation and strong courtroom advocacy.
+                        </p>
+                    </div>
+                    <div class="md:col-span-5 p-5">
+                        <span class="md:hidden block text-xs font-bold uppercase text-gold-600 mb-1" data-i18n="tbl_col_3">For Foreign Nationals &amp; Expatriates</span>
+                        <p data-i18n="row2_expat" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Asset protection, residency/business compliance, and cross-border dispute support.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Row 3: Process Transparency -->
+                <div class="grid grid-cols-1 md:grid-cols-12 hover:bg-slate-50/80 transition-colors">
+                    <div class="md:col-span-3 p-5 bg-slate-50 md:bg-transparent border-b md:border-b-0 md:border-r border-slate-200 font-bold text-navy-900 flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-gold-100 text-gold-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                        </span>
+                        <span data-i18n="row3_title">Process Transparency</span>
+                    </div>
+                    <div class="md:col-span-4 p-5 border-b md:border-b-0 md:border-r border-slate-200">
+                        <span class="md:hidden block text-xs font-bold uppercase text-gold-600 mb-1" data-i18n="tbl_col_2">For Indonesian Citizens &amp; Local Businesses</span>
+                        <p data-i18n="row3_local" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Regular updates, clear stage estimates, and structured fee clarity.
+                        </p>
+                    </div>
+                    <div class="md:col-span-5 p-5">
+                        <span class="md:hidden block text-xs font-bold uppercase text-gold-600 mb-1" data-i18n="tbl_col_3">For Foreign Nationals &amp; Expatriates</span>
+                        <p data-i18n="row3_expat" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Step-by-step guidance so overseas clients stay informed at every stage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         5. CORE PRACTICE AREAS (INTERACTIVE TAB SWITCHER)
+    ====================================================================== -->
+    <section id="services" class="py-16 lg:py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span data-i18n="srv_eyebrow" class="text-gold-600 font-bold text-xs uppercase tracking-[0.18em]">
+                    COMPREHENSIVE LEGAL SOLUTIONS
+                </span>
+                <h2 data-i18n="srv_title" class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 mt-2 mb-6">
+                    Core Practice Areas
+                </h2>
+
+                <!-- Tab Switcher Controls -->
+                <div class="inline-flex flex-col sm:flex-row p-1.5 rounded-2xl bg-slate-100 border border-slate-200 w-full sm:w-auto" role="tablist">
+                    <button type="button" id="tab-nonlit" role="tab" aria-selected="true" onclick="switchPracticeTab('nonlit')" class="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold bg-navy-900 text-white shadow-sm transition-all cursor-pointer">
+                        <i data-lucide="file-signature" class="w-4 h-4 text-gold-400"></i>
+                        <span data-i18n="tab_nonlit_label">Non-Litigation Services</span>
+                    </button>
+                    <button type="button" id="tab-lit" role="tab" aria-selected="false" onclick="switchPracticeTab('lit')" class="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold text-slate-600 hover:text-navy-900 transition-all cursor-pointer">
+                        <i data-lucide="gavel" class="w-4 h-4 text-gold-600"></i>
+                        <span data-i18n="tab_lit_label">Litigation Services</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB 1: NON-LITIGATION PANEL -->
+            <div id="panel-nonlit" role="tabpanel" class="space-y-8">
+                <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h3 data-i18n="nonlit_heading" class="font-serif text-xl sm:text-2xl font-bold text-gold-400">
+                            Preventing Disputes &amp; Strengthening Your Legal Position
+                        </h3>
+                        <p data-i18n="nonlit_desc" class="text-slate-300 text-sm sm:text-base mt-2 max-w-3xl">
+                            Focused on drafting agreements, regulatory compliance, negotiation, and risk mitigation before conflicts escalate into formal disputes.
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-navy-800 border border-slate-700 text-xs font-semibold text-slate-300 shrink-0 self-start md:self-center">
+                        <i data-lucide="shield-plus" class="w-4 h-4 text-gold-400"></i>
+                        <span data-i18n="nonlit_tag">Preventive &amp; Transactional</span>
+                    </span>
+                </div>
+
+                <!-- 5 Practice Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                                <i data-lucide="landmark" class="w-5 h-5"></i>
+                            </div>
+                            <h4 data-i18n="nl_1_title" class="font-bold text-lg text-navy-900 mb-2">
+                                Corporate &amp; Investment Law (PMA / PMDN)
+                            </h4>
+                            <p data-i18n="nl_1_desc" class="text-slate-600 text-sm leading-relaxed">
+                                Business entity setup, due diligence, corporate governance, and regulatory compliance.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                                <i data-lucide="scroll-text" class="w-5 h-5"></i>
+                            </div>
+                            <h4 data-i18n="nl_2_title" class="font-bold text-lg text-navy-900 mb-2">
+                                Commercial Contracts &amp; Agreements
+                            </h4>
+                            <p data-i18n="nl_2_desc" class="text-slate-600 text-sm leading-relaxed">
+                                Drafting, reviewing, and negotiating partnership agreements, joint ventures, distribution contracts, and employment agreements.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                                <i data-lucide="passport" class="w-5 h-5"></i>
+                            </div>
+                            <h4 data-i18n="nl_3_title" class="font-bold text-lg text-navy-900 mb-2">
+                                Foreign Worker Immigration &amp; Employment
+                            </h4>
+                            <p data-i18n="nl_3_desc" class="text-slate-600 text-sm leading-relaxed">
+                                Support for expatriate work/stay permits (TKA), labor compliance, and internal company policies.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                                <i data-lucide="home" class="w-5 h-5"></i>
+                            </div>
+                            <h4 data-i18n="nl_4_title" class="font-bold text-lg text-navy-900 mb-2">
+                                Property &amp; Real Estate
+                            </h4>
+                            <p data-i18n="nl_4_desc" class="text-slate-600 text-sm leading-relaxed">
+                                Title and legal due diligence, lease agreements, and property transactions for Indonesian and foreign clients under applicable laws.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                                <i data-lucide="users" class="w-5 h-5"></i>
+                            </div>
+                            <h4 data-i18n="nl_5_title" class="font-bold text-lg text-navy-900 mb-2">
+                                Cross-Border Family &amp; Inheritance Law
+                            </h4>
+                            <p data-i18n="nl_5_desc" class="text-slate-600 text-sm leading-relaxed">
+                                Prenuptial/postnuptial agreements (including property ownership implications for foreign spouses), guardianship, and estate/inheritance planning.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: LITIGATION PANEL -->
+            <div id="panel-lit" role="tabpanel" class="hidden space-y-8">
+                <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h3 data-i18n="lit_heading" class="font-serif text-xl sm:text-2xl font-bold text-gold-400">
+                            Decisive Advocacy &amp; Strategic Dispute Resolution
+                        </h3>
+                        <p data-i18n="lit_desc" class="text-slate-300 text-sm sm:text-base mt-2 max-w-3xl">
+                            Representing clients in pursuing or defending claims and legal reports, prioritizing the most effective path — whether through the courts or alternative dispute resolution.
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-navy-800 border border-slate-700 text-xs font-semibold text-slate-300 shrink-0 self-start md:self-center">
+                        <i data-lucide="scale" class="w-4 h-4 text-gold-400"></i>
+                        <span data-i18n="lit_tag">Dispute Resolution</span>
+                    </span>
+                </div>
+
+                <!-- 5 Litigation Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all">
+                        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                            <i data-lucide="briefcase" class="w-5 h-5"></i>
+                        </div>
+                        <h4 data-i18n="lit_1_title" class="font-bold text-lg text-navy-900 mb-2">
+                            Civil &amp; Commercial Disputes
+                        </h4>
+                        <p data-i18n="lit_1_desc" class="text-slate-600 text-sm leading-relaxed">
+                            Breach of contract (wanprestasi), unlawful acts (perbuatan melawan hukum), shareholder disputes, debt recovery, and commercial contract conflicts.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all">
+                        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                            <i data-lucide="hard-hat" class="w-5 h-5"></i>
+                        </div>
+                        <h4 data-i18n="lit_2_title" class="font-bold text-lg text-navy-900 mb-2">
+                            Employment &amp; Labor Disputes
+                        </h4>
+                        <p data-i18n="lit_2_desc" class="text-slate-600 text-sm leading-relaxed">
+                            Industrial relations disputes, termination of employment (PHK), and employee/employer rights.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all">
+                        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                        </div>
+                        <h4 data-i18n="lit_3_title" class="font-bold text-lg text-navy-900 mb-2">
+                            Criminal Representation
+                        </h4>
+                        <p data-i18n="lit_3_desc" class="text-slate-600 text-sm leading-relaxed">
+                            Legal representation before the police, prosecution, and trial courts — for complainants, respondents/defendants, witnesses, or victims.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all">
+                        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                            <i data-lucide="scale" class="w-5 h-5"></i>
+                        </div>
+                        <h4 data-i18n="lit_4_title" class="font-bold text-lg text-navy-900 mb-2">
+                            Property &amp; Family Disputes
+                        </h4>
+                        <p data-i18n="lit_4_desc" class="text-slate-600 text-sm leading-relaxed">
+                            Ownership and lease disputes, inheritance conflicts, and divorce or child custody proceedings.
+                        </p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="p-6 rounded-2xl bg-offwhite border border-slate-200 hover:border-gold-500/60 hover:shadow-md transition-all md:col-span-2 lg:col-span-2">
+                        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
+                            <i data-lucide="handshake" class="w-5 h-5"></i>
+                        </div>
+                        <h4 data-i18n="lit_5_title" class="font-bold text-lg text-navy-900 mb-2">
+                            Mediation, Negotiation &amp; Arbitration
+                        </h4>
+                        <p data-i18n="lit_5_desc" class="text-slate-600 text-sm leading-relaxed">
+                            Out-of-court dispute resolution offering greater efficiency, confidentiality, and preservation of business relationships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         6. HOW WE WORK (4-STEP STRUCTURED WORKFLOW)
+    ====================================================================== -->
+    <section id="workflow" class="py-16 lg:py-24 bg-navy-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span data-i18n="wf_eyebrow" class="text-gold-400 font-bold text-xs uppercase tracking-[0.18em]">
+                    A CLEAR &amp; STRUCTURED WORKFLOW
+                </span>
+                <h2 data-i18n="wf_title" class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">
+                    How We Work
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="relative p-6 rounded-2xl bg-navy-800/80 border border-slate-700/80 hover:border-gold-500/50 transition-all">
+                    <div class="w-10 h-10 rounded-full bg-gold-500 text-navy-950 font-bold text-base flex items-center justify-center mb-5 shadow-md">
+                        01
+                    </div>
+                    <h3 data-i18n="wf_1_title" class="font-serif text-xl font-bold text-white mb-2.5">
+                        Consultation &amp; Issue Mapping
+                    </h3>
+                    <p data-i18n="wf_1_desc" class="text-slate-300 text-sm leading-relaxed">
+                        We listen to your timeline, review initial documents, and map out legal risks and resolution options.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative p-6 rounded-2xl bg-navy-800/80 border border-slate-700/80 hover:border-gold-500/50 transition-all">
+                    <div class="w-10 h-10 rounded-full bg-gold-500 text-navy-950 font-bold text-base flex items-center justify-center mb-5 shadow-md">
+                        02
+                    </div>
+                    <h3 data-i18n="wf_2_title" class="font-serif text-xl font-bold text-white mb-2.5">
+                        Strategy &amp; Service Proposal
+                    </h3>
+                    <p data-i18n="wf_2_desc" class="text-slate-300 text-sm leading-relaxed">
+                        We outline a clear action plan (litigation or non-litigation), estimated stages, and transparent scope and fee terms.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative p-6 rounded-2xl bg-navy-800/80 border border-slate-700/80 hover:border-gold-500/50 transition-all">
+                    <div class="w-10 h-10 rounded-full bg-gold-500 text-navy-950 font-bold text-base flex items-center justify-center mb-5 shadow-md">
+                        03
+                    </div>
+                    <h3 data-i18n="wf_3_title" class="font-serif text-xl font-bold text-white mb-2.5">
+                        Execution &amp; Active Representation
+                    </h3>
+                    <p data-i18n="wf_3_desc" class="text-slate-300 text-sm leading-relaxed">
+                        We draft legal documents, negotiate, handle licensing, or represent you in legal proceedings and court hearings.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative p-6 rounded-2xl bg-navy-800/80 border border-slate-700/80 hover:border-gold-500/50 transition-all">
+                    <div class="w-10 h-10 rounded-full bg-gold-500 text-navy-950 font-bold text-base flex items-center justify-center mb-5 shadow-md">
+                        04
+                    </div>
+                    <h3 data-i18n="wf_4_title" class="font-serif text-xl font-bold text-white mb-2.5">
+                        Reporting &amp; Resolution
+                    </h3>
+                    <p data-i18n="wf_4_desc" class="text-slate-300 text-sm leading-relaxed">
+                        We provide regular progress updates through resolution or post-case follow-up.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         7. FAQ (INTERACTIVE ACCORDION)
+    ====================================================================== -->
+    <section id="faq" class="py-16 lg:py-24 bg-offwhite">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span data-i18n="faq_eyebrow" class="text-gold-600 font-bold text-xs uppercase tracking-[0.18em]">
+                    FREQUENTLY ASKED QUESTIONS
+                </span>
+                <h2 data-i18n="faq_title" class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 mt-2">
+                    Common Inquiries
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="accordion-item active bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-5 sm:p-6 text-left font-bold text-navy-900 text-base sm:text-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                        <span data-i18n="faq_1_q">Does your firm assist clients located outside Indonesia?</span>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gold-600 shrink-0 ml-4 transition-transform duration-200"></i>
+                    </button>
+                    <div class="accordion-content px-5 sm:px-6">
+                        <p data-i18n="faq_1_a" class="pb-6 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-4">
+                            Yes. Foreign nationals and Indonesian citizens living abroad can book online consultations, share documents securely, and grant power of attorney in accordance with applicable rules.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-5 sm:p-6 text-left font-bold text-navy-900 text-base sm:text-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                        <span data-i18n="faq_2_q">When do I need Non-Litigation vs. Litigation services?</span>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gold-600 shrink-0 ml-4 transition-transform duration-200"></i>
+                    </button>
+                    <div class="accordion-content px-5 sm:px-6">
+                        <p data-i18n="faq_2_a" class="pb-6 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-4">
+                            Choose Non-Litigation when drafting contracts, obtaining permits, conducting due diligence, or preventing disputes. Choose Litigation when rights have been violated, a dispute has arisen, or formal legal/court proceedings are involved.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-5 sm:p-6 text-left font-bold text-navy-900 text-base sm:text-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                        <span data-i18n="faq_3_q">Is the confidentiality of my information and case guaranteed?</span>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gold-600 shrink-0 ml-4 transition-transform duration-200"></i>
+                    </button>
+                    <div class="accordion-content px-5 sm:px-6">
+                        <p data-i18n="faq_3_a" class="pb-6 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-4">
+                            Yes. All client information, documents, and identities are kept strictly confidential from the very first consultation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         8. CLOSING CTA, ZERO-STORAGE CONSULTATION FORM & CONTACT FOOTER
+    ====================================================================== -->
+    <section id="consultation" class="py-16 lg:py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-navy-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 grid grid-cols-1 lg:grid-cols-12">
+
+                <!-- Left Side: Closing CTA & Contact Information -->
+                <div id="contact" class="lg:col-span-6 p-8 sm:p-12 text-white flex flex-col justify-between bg-legal-grid">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/15 text-gold-400 text-xs font-bold uppercase tracking-wider mb-5">
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                            <span data-i18n="cta_eyebrow">IMMEDIATE LEGAL ASSISTANCE</span>
+                        </span>
+
+                        <h2 data-i18n="cta_headline" class="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug mb-4">
+                            Don't Wait for a Legal Issue to Become More Complex.
+                        </h2>
+                        <p data-i18n="cta_sub" class="text-slate-300 text-base leading-relaxed mb-8">
+                            Contact Us Immediately to discuss your legal needs or challenges with our team to map out the right next steps.
+                        </p>
+
+                        <!-- Contact Details List -->
+                        <div class="space-y-5 text-sm">
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-9 h-9 rounded-lg bg-navy-800 border border-slate-700 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div data-i18n="lbl_address" class="font-semibold text-gold-400 mb-0.5">Office Address</div>
+                                    <p class="text-slate-300 leading-relaxed">
+                                        Jl. Jend. A. Yani No. 21, Rt.019/Rw.010, Kel. Utan Kayu Utara, Kec. Matraman, Kota Jakarta Timur, Prov. DKI JAKARTA
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-9 h-9 rounded-lg bg-navy-800 border border-slate-700 text-gold-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gold-400 mb-0.5">Email</div>
+                                    <a href="mailto:samlawfirm@gmail.com" class="text-slate-200 hover:text-gold-400 transition-colors">
+                                        samlawfirm@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-9 h-9 rounded-lg bg-navy-800 border border-slate-700 text-gold-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gold-400 mb-0.5">Phone / WhatsApp</div>
+                                    <a href="https://wa.me/6285967015252" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-gold-400 transition-colors font-medium">
+                                        +62 859-6701-5252
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-9 h-9 rounded-lg bg-navy-800 border border-slate-700 text-gold-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="clock" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div data-i18n="lbl_hours" class="font-semibold text-gold-400 mb-0.5">Office Hours</div>
+                                    <p data-i18n="val_hours" class="text-slate-300">
+                                        Monday – Friday, 09:00 AM – 05:00 PM WIB
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Secure Direct WhatsApp Consultation Form -->
+                <div class="lg:col-span-6 p-8 sm:p-12 bg-offwhite">
+                    <div class="mb-6">
+                        <h3 data-i18n="form_title" class="font-serif text-2xl font-bold text-navy-900">
+                            Book A Legal Consultant
+                        </h3>
+                        <p data-i18n="form_subtitle" class="text-slate-600 text-sm mt-1">
+                            Fill in a brief summary below to connect directly with our advocates via encrypted WhatsApp.
+                        </p>
+                    </div>
+
+                    <!-- Inline Alert Message Box (Replaces alert()) -->
+                    <div id="form-feedback" class="hidden mb-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium"></div>
+
+                    <form id="consult-form" onsubmit="handleConsultSubmit(event)" class="space-y-4" novalidate>
+                        <!-- Name -->
+                        <div>
+                            <label for="client-name" data-i18n="f_name_lbl" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
+                                Full Name / Company Name *
+                            </label>
+                            <input type="text" id="client-name" required maxlength="100" placeholder="e.g., Budi Santoso / PT Global Nusantara"
+                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-gold-500">
+                        </div>
+
+                        <!-- Two Columns: Client Profile & Service Type -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="client-type" data-i18n="f_type_lbl" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
+                                    Client Category
+                                </label>
+                                <select id="client-type" class="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500">
+                                    <option value="Indonesian Citizen / Local Business">Indonesian Citizen / Local Business</option>
+                                    <option value="Foreign National / Expatriate">Foreign National / Expatriate</option>
+                                    <option value="Multinational Corporation (PMA)">Multinational Corporation (PMA)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="service-category" data-i18n="f_srv_lbl" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
+                                    Legal Service Type
+                                </label>
+                                <select id="service-category" class="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500">
+                                    <option value="Non-Litigation (Contracts, PMA, Permits, Property)">Non-Litigation (Contracts, PMA, Permits)</option>
+                                    <option value="Litigation (Disputes, Court, Criminal, Labor)">Litigation (Disputes, Court, Criminal)</option>
+                                    <option value="General Legal Assessment">Not Sure — Need Initial Assessment</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Brief Summary -->
+                        <div>
+                            <label for="case-summary" data-i18n="f_msg_lbl" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
+                                Brief Overview of Your Matter *
+                            </label>
+                            <textarea id="case-summary" rows="3" required maxlength="600" placeholder="Briefly describe your situation or preferred consultation schedule..."
+                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"></textarea>
+                        </div>
+
+                        <!-- Zero-Storage Security Badge -->
+                        <div class="flex items-start gap-2.5 p-3.5 rounded-xl bg-slate-200/70 border border-slate-300/80 text-xs text-slate-700">
+                            <i data-lucide="lock" class="w-4 h-4 text-navy-900 shrink-0 mt-0.5"></i>
+                            <span data-i18n="security_note">
+                                <strong>Zero-Storage Privacy Architecture:</strong> Your input is sanitized locally in your browser and never stored on a public web database. Sensitive case files are only shared after formal confidentiality/NDA confirmation.
+                            </span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-4 px-6 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
+                            <span data-i18n="cta_button">Consult Now!!</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         MINIMALIST LEGAL FOOTER
+    ====================================================================== -->
+    <footer class="bg-navy-950 text-slate-400 py-10 border-t border-slate-800 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2.5">
+                <span class="font-serif font-bold text-white text-base">SAM</span>
+                <span>— Sadira Ali Matdoan &amp; Partners. All Rights Reserved.</span>
+            </div>
+            <div data-i18n="footer_disclaimer" class="text-slate-500 text-center sm:text-right">
+                Attorney-Client Privilege &amp; Strict Confidentiality Protected.
+            </div>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         JAVASCRIPT: BILINGUAL DICTIONARY, TABS, ACCORDION & XSS-SAFE WHATSAPP
+    ====================================================================== -->
+    <script>
+        // Initialize Lucide icons safely
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+
+        // Mobile Navigation Drawer Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Practice Areas Tab Switcher
+        function switchPracticeTab(tab) {
+            const btnNonLit = document.getElementById('tab-nonlit');
+            const btnLit = document.getElementById('tab-lit');
+            const panelNonLit = document.getElementById('panel-nonlit');
+            const panelLit = document.getElementById('panel-lit');
+
+            if (tab === 'nonlit') {
+                btnNonLit.classList.add('bg-navy-900', 'text-white', 'shadow-sm');
+                btnNonLit.classList.remove('text-slate-600');
+                btnNonLit.setAttribute('aria-selected', 'true');
+
+                btnLit.classList.remove('bg-navy-900', 'text-white', 'shadow-sm');
+                btnLit.classList.add('text-slate-600');
+                btnLit.setAttribute('aria-selected', 'false');
+
+                panelNonLit.classList.remove('hidden');
+                panelLit.classList.add('hidden');
+            } else {
+                btnLit.classList.add('bg-navy-900', 'text-white', 'shadow-sm');
+                btnLit.classList.remove('text-slate-600');
+                btnLit.setAttribute('aria-selected', 'true');
+
+                btnNonLit.classList.remove('bg-navy-900', 'text-white', 'shadow-sm');
+                btnNonLit.classList.add('text-slate-600');
+                btnNonLit.setAttribute('aria-selected', 'false');
+
+                panelLit.classList.remove('hidden');
+                panelNonLit.classList.add('hidden');
+            }
+        }
+
+        // FAQ Accordion Toggle
+        function toggleFaq(button) {
+            const item = button.closest('.accordion-item');
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Strict Input Sanitization (Prevents HTML/Script Injection)
+        function sanitizeText(str) {
+            return str.replace(/[<>]/g, '').trim();
+        }
+
+        // Direct WhatsApp Consultation Handler (Zero-Storage Architecture)
+        function handleConsultSubmit(event) {
+            event.preventDefault();
+            const feedback = document.getElementById('form-feedback');
+            const rawName = document.getElementById('client-name').value;
+            const rawType = document.getElementById('client-type').value;
+            const rawService = document.getElementById('service-category').value;
+            const rawSummary = document.getElementById('case-summary').value;
+
+            const name = sanitizeText(rawName);
+            const summary = sanitizeText(rawSummary);
+
+            if (!name || !summary) {
+                feedback.textContent = currentLang === 'id'
+                    ? 'Mohon lengkapi Nama dan Ringkasan Permasalahan Hukum Anda terlebih dahulu.'
+                    : 'Please provide your Name and a Brief Overview of your legal matter.';
+                feedback.classList.remove('hidden');
+                return;
+            }
+            feedback.classList.add('hidden');
+
+            const message =
+                `Halo SAM Law Firm (Sadira Ali Matdoan & Partners),\n\n` +
+                `Saya ingin menjadwalkan konsultasi hukum:\n` +
+                `• Nama / Perusahaan: ${name}\n` +
+                `• Kategori Klien: ${rawType}\n` +
+                `• Bidang Layanan: ${rawService}\n` +
+                `• Ringkasan Kebutuhan: ${summary}\n\n` +
+                `Mohon informasi jadwal konsultasi yang tersedia. Terima kasih.`;
+
+            const waUrl = `https://wa.me/6285967015252?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        // =====================================================================
+        // BILINGUAL DICTIONARY (ENGLISH & BAHASA INDONESIA)
+        // =====================================================================
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                nav_about: "Our Team",
+                nav_why: "Why Choose Us",
+                nav_services: "Practice Areas",
+                nav_workflow: "How We Work",
+                nav_faq: "FAQ",
+                nav_contact: "Contact",
+                nav_cta: "Book Consultation",
+                hero_badge: "INTERNATIONAL & NATIONAL LEGAL CONSULTANT",
+                hero_headline: "Facing a complex legal challenge in Indonesia? Whether as a local citizen or an expat — where do you turn for total protection and reliable solutions?",
+                hero_subheadline: "A modern law firm handling dispute resolution (Litigation) and strategic legal counsel (Non-Litigation) for individuals, expatriates, and multinational businesses in Indonesia.",
+                hero_body: "Our firm is your comprehensive legal partner, equipped to handle all spectrums of legal matters for both domestic and international clients. From corporate disputes and commercial contracts to immigration and foreign citizen affairs, we deliver strategic, unwavering representation to safeguard your rights and interests every step of the way.",
+                hero_cta_primary: "Book A Legal Consultant",
+                hero_cta_secondary: "Explore Our Services",
+                trust_1: "Bilingual Representation (Bahasa Indonesia & English)",
+                trust_2: "Integrated Litigation & Non-Litigation Services",
+                trust_3: "Strict Client Confidentiality",
+                team_eyebrow: "DEDICATED COUNSEL",
+                team_title: "Meet Our Legal Team",
+                team_caption: "Domestic Courtroom Excellence & Cross-Border Counsel",
+                team_desc: "Our advocates combine deep courtroom experience in Indonesia with clear, international-standard communication to protect your interests at every stage.",
+                commitment_title: "Our Commitments",
+                commitment_quote: "\"Every case is handled directly by licensed advocates, never passed off without oversight. We combine thorough legal research with honest risk assessments so you know where you stand before making any decision.\"",
+                why_eyebrow: "OUR ADVANTAGES",
+                why_title: "Why Choose Us?",
+                why_motto: "Bridging Legal Certainty Across Jurisdiction",
+                why_desc: "Navigating legal matters in Indonesia, whether as a local citizen or a foreign national, requires precise strategy and a deep understanding of domestic regulations alongside international standards. We deliver clear, measurable, and results-driven legal solutions.",
+                tbl_col_1: "Advantage Pillar",
+                tbl_col_2: "For Indonesian Citizens & Local Businesses",
+                tbl_col_3: "For Foreign Nationals & Expatriates",
+                row1_title: "Language & Clarity",
+                row1_local: "Clear, practical legal guidance without confusing legalese.",
+                row1_expat: "Fluent English communication paired with clear Indonesian legal context.",
+                row2_title: "Dual Approach",
+                row2_local: "Proactive business risk mitigation and strong courtroom advocacy.",
+                row2_expat: "Asset protection, residency/business compliance, and cross-border dispute support.",
+                row3_title: "Process Transparency",
+                row3_local: "Regular updates, clear stage estimates, and structured fee clarity.",
+                row3_expat: "Step-by-step guidance so overseas clients stay informed at every stage.",
+                srv_eyebrow: "COMPREHENSIVE LEGAL SOLUTIONS",
+                srv_title: "Core Practice Areas",
+                tab_nonlit_label: "Non-Litigation Services",
+                tab_lit_label: "Litigation Services",
+                nonlit_heading: "Preventing Disputes & Strengthening Your Legal Position",
+                nonlit_desc: "Focused on drafting agreements, regulatory compliance, negotiation, and risk mitigation before conflicts escalate into formal disputes.",
+                nonlit_tag: "Preventive & Transactional",
+                nl_1_title: "Corporate & Investment Law (PMA / PMDN)",
+                nl_1_desc: "Business entity setup, due diligence, corporate governance, and regulatory compliance.",
+                nl_2_title: "Commercial Contracts & Agreements",
+                nl_2_desc: "Drafting, reviewing, and negotiating partnership agreements, joint ventures, distribution contracts, and employment agreements.",
+                nl_3_title: "Foreign Worker Immigration & Employment",
+                nl_3_desc: "Support for expatriate work/stay permits (TKA), labor compliance, and internal company policies.",
+                nl_4_title: "Property & Real Estate",
+                nl_4_desc: "Title and legal due diligence, lease agreements, and property transactions for Indonesian and foreign clients under applicable laws.",
+                nl_5_title: "Cross-Border Family & Inheritance Law",
+                nl_5_desc: "Prenuptial/postnuptial agreements (including property ownership implications for foreign spouses), guardianship, and estate/inheritance planning.",
+                lit_heading: "Decisive Advocacy & Strategic Dispute Resolution",
+                lit_desc: "Representing clients in pursuing or defending claims and legal reports, prioritizing the most effective path — whether through the courts or alternative dispute resolution.",
+                lit_tag: "Dispute Resolution",
+                lit_1_title: "Civil & Commercial Disputes",
+                lit_1_desc: "Breach of contract (wanprestasi), unlawful acts (perbuatan melawan hukum), shareholder disputes, debt recovery, and commercial contract conflicts.",
+                lit_2_title: "Employment & Labor Disputes",
+                lit_2_desc: "Industrial relations disputes, termination of employment (PHK), and employee/employer rights.",
+                lit_3_title: "Criminal Representation",
+                lit_3_desc: "Legal representation before the police, prosecution, and trial courts — for complainants, respondents/defendants, witnesses, or victims.",
+                lit_4_title: "Property & Family Disputes",
+                lit_4_desc: "Ownership and lease disputes, inheritance conflicts, and divorce or child custody proceedings.",
+                lit_5_title: "Mediation, Negotiation & Arbitration",
+                lit_5_desc: "Out-of-court dispute resolution offering greater efficiency, confidentiality, and preservation of business relationships.",
+                wf_eyebrow: "A CLEAR & STRUCTURED WORKFLOW",
+                wf_title: "How We Work",
+                wf_1_title: "Consultation & Issue Mapping",
+                wf_1_desc: "We listen to your timeline, review initial documents, and map out legal risks and resolution options.",
+                wf_2_title: "Strategy & Service Proposal",
+                wf_2_desc: "We outline a clear action plan (litigation or non-litigation), estimated stages, and transparent scope and fee terms.",
+                wf_3_title: "Execution & Active Representation",
+                wf_3_desc: "We draft legal documents, negotiate, handle licensing, or represent you in legal proceedings and court hearings.",
+                wf_4_title: "Reporting & Resolution",
+                wf_4_desc: "We provide regular progress updates through resolution or post-case follow-up.",
+                faq_eyebrow: "FREQUENTLY ASKED QUESTIONS",
+                faq_title: "Common Inquiries",
+                faq_1_q: "Does your firm assist clients located outside Indonesia?",
+                faq_1_a: "Yes. Foreign nationals and Indonesian citizens living abroad can book online consultations, share documents securely, and grant power of attorney in accordance with applicable rules.",
+                faq_2_q: "When do I need Non-Litigation vs. Litigation services?",
+                faq_2_a: "Choose Non-Litigation when drafting contracts, obtaining permits, conducting due diligence, or preventing disputes. Choose Litigation when rights have been violated, a dispute has arisen, or formal legal/court proceedings are involved.",
+                faq_3_q: "Is the confidentiality of my information and case guaranteed?",
+                faq_3_a: "Yes. All client information, documents, and identities are kept strictly confidential from the very first consultation.",
+                cta_eyebrow: "IMMEDIATE LEGAL ASSISTANCE",
+                cta_headline: "Don't Wait for a Legal Issue to Become More Complex.",
+                cta_sub: "Contact Us Immediately to discuss your legal needs or challenges with our team to map out the right next steps.",
+                lbl_address: "Office Address",
+                lbl_hours: "Office Hours",
+                val_hours: "Monday – Friday, 09:00 AM – 05:00 PM WIB",
+                form_title: "Book A Legal Consultant",
+                form_subtitle: "Fill in a brief summary below to connect directly with our advocates via encrypted WhatsApp.",
+                f_name_lbl: "Full Name / Company Name *",
+                f_type_lbl: "Client Category",
+                f_srv_lbl: "Legal Service Type",
+                f_msg_lbl: "Brief Overview of Your Matter *",
+                security_note: "Zero-Storage Privacy Architecture: Your input is sanitized locally in your browser and never stored on a public web database. Sensitive case files are only shared after formal confidentiality/NDA confirmation.",
+                cta_button: "Consult Now!!",
+                footer_disclaimer: "Attorney-Client Privilege & Strict Confidentiality Protected."
+            },
+            id: {
+                nav_about: "Tim Kami",
+                nav_why: "Keunggulan Kami",
+                nav_services: "Bidang Praktik",
+                nav_workflow: "Alur Kerja",
+                nav_faq: "FAQ",
+                nav_contact: "Kontak",
+                nav_cta: "Jadwalkan Konsultasi",
+                hero_badge: "KONSULTAN HUKUM NASIONAL & INTERNASIONAL",
+                hero_headline: "Menghadapi persoalan hukum yang kompleks di Indonesia? Baik sebagai WNI maupun ekspatriat — ke mana Anda melangkah untuk perlindungan menyeluruh dan solusi yang terpercaya?",
+                hero_subheadline: "Firma hukum modern yang menangani penyelesaian sengketa (Litigasi) dan pendampingan hukum strategis (Non-Litigasi) bagi individu, ekspatriat, serta perusahaan multinasional di Indonesia.",
+                hero_body: "Firma kami adalah mitra hukum komprehensif Anda, siap menangani seluruh spektrum permasalahan hukum bagi klien domestik maupun internasional. Mulai dari sengketa korporasi dan kontrak komersial hingga keimigrasian dan urusan warga negara asing, kami menghadirkan representasi strategis yang teguh untuk melindungi hak dan kepentingan Anda di setiap langkah.",
+                hero_cta_primary: "Jadwalkan Konsultan Hukum",
+                hero_cta_secondary: "Jelajahi Layanan Kami",
+                trust_1: "Representasi Bilingual (Bahasa Indonesia & Inggris)",
+                trust_2: "Layanan Terpadu Litigasi & Non-Litigasi",
+                trust_3: "Kerahasiaan Klien Terjamin Ketat",
+                team_eyebrow: "ADVOKAT BERDEDIKASI",
+                team_title: "Kenali Tim Hukum Kami",
+                team_caption: "Keunggulan Persidangan Domestik & Konsultasi Lintas Yurisdiksi",
+                team_desc: "Para advokat kami memadukan pengalaman mendalam di ruang sidang Indonesia dengan komunikasi berstandar internasional yang jernih untuk melindungi kepentingan Anda di setiap tahapan.",
+                commitment_title: "Komitmen Kami",
+                commitment_quote: "\"Setiap perkara ditangani langsung oleh advokat berlisensi, tidak pernah dialihkan tanpa pengawasan. Kami menggabungkan riset hukum mendalam dengan analisis risiko yang jujur agar Anda memahami posisi hukum Anda sebelum mengambil keputusan.\"",
+                why_eyebrow: "KEUNGGULAN KAMI",
+                why_title: "Mengapa Memilih Kami?",
+                why_motto: "Menjembatani Kepastian Hukum Lintas Yurisdiksi",
+                why_desc: "Menavigasi persoalan hukum di Indonesia, baik sebagai warga negara lokal maupun warga negara asing, membutuhkan strategi presisi serta pemahaman mendalam atas regulasi domestik dan standar internasional. Kami menghadirkan solusi hukum yang jelas, terukur, dan berorientasi hasil.",
+                tbl_col_1: "Pilar Keunggulan",
+                tbl_col_2: "Bagi WNI & Bisnis Lokal",
+                tbl_col_3: "Bagi Warga Negara Asing & Ekspatriat",
+                row1_title: "Bahasa & Kejelasan",
+                row1_local: "Panduan hukum yang jelas dan praktis tanpa istilah hukum yang membingungkan.",
+                row1_expat: "Komunikasi bahasa Inggris yang fasih dipadukan dengan konteks hukum Indonesia yang akurat.",
+                row2_title: "Pendekatan Ganda",
+                row2_local: "Mitigasi risiko bisnis proaktif serta pembelaan kuat di pengadilan.",
+                row2_expat: "Perlindungan aset, kepatuhan izin tinggal/bisnis, dan dukungan sengketa lintas batas.",
+                row3_title: "Transparansi Proses",
+                row3_local: "Pembaruan berkala, estimasi tahapan yang jelas, dan struktur biaya yang transparan.",
+                row3_expat: "Panduan langkah demi langkah agar klien di luar negeri tetap terinformasi di setiap tahap.",
+                srv_eyebrow: "SOLUSI HUKUM KOMPREHENSIF",
+                srv_title: "Bidang Praktik Utama",
+                tab_nonlit_label: "Layanan Non-Litigasi",
+                tab_lit_label: "Layanan Litigasi",
+                nonlit_heading: "Mencegah Sengketa & Memperkuat Posisi Hukum Anda",
+                nonlit_desc: "Berfokus pada penyusunan perjanjian, kepatuhan regulasi, negosiasi, dan mitigasi risiko sebelum konflik berkembang menjadi sengketa formal.",
+                nonlit_tag: "Preventif & Transaksional",
+                nl_1_title: "Hukum Korporasi & Investasi (PMA / PMDN)",
+                nl_1_desc: "Pendirian badan usaha, uji tuntas hukum (due diligence), tata kelola perusahaan, dan kepatuhan regulasi.",
+                nl_2_title: "Kontrak & Perjanjian Komersial",
+                nl_2_desc: "Penyusunan, peninjauan, dan negosiasi perjanjian kemitraan, joint venture, kontrak distribusi, serta perjanjian kerja.",
+                nl_3_title: "Keimigrasian & Ketenagakerjaan TKA",
+                nl_3_desc: "Dukungan izin kerja/tinggal ekspatriat (TKA), kepatuhan ketenagakerjaan, dan kebijakan internal perusahaan.",
+                nl_4_title: "Properti & Real Estat",
+                nl_4_desc: "Uji tuntas legalitas sertifikat, perjanjian sewa, dan transaksi properti bagi klien Indonesia maupun asing sesuai hukum yang berlaku.",
+                nl_5_title: "Hukum Keluarga & Waris Lintas Negara",
+                nl_5_desc: "Perjanjian pranikah/pascanikah (termasuk implikasi kepemilikan properti bagi pasangan WNA), perwalian, dan perencanaan waris.",
+                lit_heading: "Advokasi Tegas & Penyelesaian Sengketa Strategis",
+                lit_desc: "Mewakili klien dalam mengajukan atau membela gugatan maupun laporan hukum, memprioritaskan jalur paling efektif — baik melalui pengadilan maupun alternatif penyelesaian sengketa.",
+                lit_tag: "Penyelesaian Sengketa",
+                lit_1_title: "Sengketa Perdata & Komersial",
+                lit_1_desc: "Wanprestasi, perbuatan melawan hukum (PMH), sengketa pemegang saham, penagihan piutang, dan konflik kontrak komersial.",
+                lit_2_title: "Perselisihan Hubungan Industrial",
+                lit_2_desc: "Sengketa ketenagakerjaan, pemutusan hubungan kerja (PHK), serta perlindungan hak pekerja maupun pengusaha.",
+                lit_3_title: "Pendampingan Perkara Pidana",
+                lit_3_desc: "Representasi hukum di tingkat kepolisian, kejaksaan, dan persidangan — bagi pelapor, terlapor/terdakwa, saksi, maupun korban.",
+                lit_4_title: "Sengketa Properti & Keluarga",
+                lit_4_desc: "Sengketa kepemilikan dan sewa properti, konflik waris, serta perkara perceraian maupun hak asuh anak.",
+                lit_5_title: "Mediasi, Negosiasi & Arbitrase",
+                lit_5_desc: "Penyelesaian sengketa di luar pengadilan yang menawarkan efisiensi lebih tinggi, kerahasiaan, dan menjaga hubungan bisnis.",
+                wf_eyebrow: "ALUR KERJA YANG JELAS & TERSTRUKTUR",
+                wf_title: "Bagaimana Kami Bekerja",
+                wf_1_title: "Konsultasi & Pemetaan Masalah",
+                wf_1_desc: "Kami mendengarkan kronologi Anda, meninjau dokumen awal, serta memetakan risiko hukum dan opsi penyelesaiannya.",
+                wf_2_title: "Strategi & Proposal Layanan",
+                wf_2_desc: "Kami menyusun rencana aksi yang jelas (litigasi atau non-litigasi), estimasi tahapan, serta ruang lingkup dan biaya yang transparan.",
+                wf_3_title: "Eksekusi & Representasi Aktif",
+                wf_3_desc: "Kami menyusun dokumen hukum, bernegosiasi, mengurus perizinan, atau mewakili Anda dalam proses hukum dan persidangan.",
+                wf_4_title: "Pelaporan & Penyelesaian",
+                wf_4_desc: "Kami memberikan laporan perkembangan secara berkala hingga perkara tuntas maupun tindak lanjut pascapenyelesaian.",
+                faq_eyebrow: "PERTANYAAN YANG SERING DIAJUKAN",
+                faq_title: "Informasi & Pertanyaan Umum",
+                faq_1_q: "Apakah firma Anda dapat membantu klien yang berdomisili di luar Indonesia?",
+                faq_1_a: "Ya. Warga negara asing maupun WNI yang tinggal di luar negeri dapat menjadwalkan konsultasi daring, berbagi dokumen secara aman, dan memberikan surat kuasa sesuai ketentuan hukum yang berlaku.",
+                faq_2_q: "Kapan saya membutuhkan layanan Non-Litigasi dibandingkan Litigasi?",
+                faq_2_a: "Pilih Non-Litigasi saat menyusun kontrak, mengurus perizinan, melakukan uji tuntas, atau mencegah sengketa. Pilih Litigasi ketika hak Anda dilanggar, sengketa telah terjadi, atau melibatkan proses hukum/pengadilan formal.",
+                faq_3_q: "Apakah kerahasiaan informasi dan kasus saya dijamin?",
+                faq_3_a: "Ya. Seluruh informasi, dokumen, dan identitas klien dijaga kerahasiaannya secara ketat sejak konsultasi pertama.",
+                cta_eyebrow: "BANTUAN HUKUM SEGERA",
+                cta_headline: "Jangan Tunggu Persoalan Hukum Menjadi Semakin Rumit.",
+                cta_sub: "Hubungi Kami Segera untuk mendiskusikan kebutuhan atau tantangan hukum Anda bersama tim kami guna memetakan langkah terbaik berikutnya.",
+                lbl_address: "Alamat Kantor",
+                lbl_hours: "Jam Operasional",
+                val_hours: "Senin – Jumat, 09:00 – 17:00 WIB",
+                form_title: "Jadwalkan Konsultan Hukum",
+                form_subtitle: "Isi ringkasan singkat di bawah ini untuk terhubung langsung dengan advokat kami melalui WhatsApp.",
+                f_name_lbl: "Nama Lengkap / Nama Perusahaan *",
+                f_type_lbl: "Kategori Klien",
+                f_srv_lbl: "Jenis Layanan Hukum",
+                f_msg_lbl: "Ringkasan Singkat Permasalahan *",
+                security_note: "Arsitektur Privasi Zero-Storage: Data Anda disanitasi langsung di browser dan tidak pernah disimpan di database web publik. Dokumen rahasia hanya dikirimkan setelah konfirmasi kerahasiaan/NDA resmi.",
+                cta_button: "Konsultasi Sekarang!!",
+                footer_disclaimer: "Hak Istimewa Advokat-Klien & Kerahasiaan Ketat Dilindungi."
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            // Update desktop & mobile language toggle button states
+            const activeClasses = ['bg-gold-500', 'text-navy-950'];
+            const inactiveClasses = ['text-slate-300'];
+
+            ['btn-lang-en', 'btn-lang-en-mob'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (lang === 'en') {
+                    el.classList.add(...activeClasses);
+                    el.classList.remove(...inactiveClasses);
+                } else {
+                    el.classList.remove(...activeClasses);
+                    el.classList.add(...inactiveClasses);
+                }
+            });
+
+            ['btn-lang-id', 'btn-lang-id-mob'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (lang === 'id') {
+                    el.classList.add(...activeClasses);
+                    el.classList.remove(...inactiveClasses);
+                } else {
+                    el.classList.remove(...activeClasses);
+                    el.classList.add(...inactiveClasses);
+                }
+            });
+
+            // Apply dictionary texts
+            const dict = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
