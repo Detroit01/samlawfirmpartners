@@ -160,7 +160,20 @@
   <!-- HERO SECTION -->
   <section class="relative bg-navy-900 text-white overflow-hidden">
     <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#C59B27 1px, transparent 1px); background-size: 28px 28px;"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 lg:pt-12 lg:pb-28">
+      
+      <!-- Baris Atas: Counter Total Views di Pojok Kanan Atas (Di Atas Badge International) -->
+      <div class="flex justify-end mb-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-800/90 border border-brass-500/30 text-slate-300 text-xs font-medium shadow-sm">
+          <svg class="w-3.5 h-3.5 text-brass-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          <span data-i18n="total_views_lbl">Total Views:</span>
+          <strong id="hero-total-views" class="text-brass-400 font-bold tracking-wide">0</strong>
+        </div>
+      </div>
+
       <div class="max-w-4xl">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brass-500/15 border border-brass-500/30 text-brass-400 text-xs font-semibold uppercase tracking-widest mb-6">
           <span class="w-2 h-2 rounded-full bg-brass-400"></span>
@@ -771,6 +784,23 @@
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
+
+    // Tambahkan terjemahan label Total Views ke dictionary
+    translations.en.total_views_lbl = 'Total Views:';
+    translations.id.total_views_lbl = 'Total Kunjungan:';
+
+    // Jalankan penghitung Total Views
+    (function initHeroViews() {
+      const VIEWS_KEY = 'sam_page_views_v1';
+      let currentViews = parseInt(localStorage.getItem(VIEWS_KEY) || '128', 10);
+      currentViews += 1;
+      localStorage.setItem(VIEWS_KEY, currentViews);
+
+      const viewEl = document.getElementById('hero-total-views');
+      if (viewEl) {
+        viewEl.textContent = currentViews.toLocaleString();
+      }
+    })();
 
     // Practice Areas Tab Switcher
     function switchServiceTab(tab) {
