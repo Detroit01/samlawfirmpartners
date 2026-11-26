@@ -789,25 +789,29 @@
     translations.en.total_views_lbl = 'Total Views:';
     translations.id.total_views_lbl = 'Total Kunjungan:';
 
-    // 1. Global Total Views Counter (Mulai dari 437)
+   // 1. Global Total Views Counter (Mulai dari 437 - Valid Endpoint)
     document.addEventListener('DOMContentLoaded', function () {
       const OFFSET = 437;
-      const STORAGE_KEY = 'sam_views_final';
+      const STORAGE_KEY = 'sam_views_live_v1';
       const el = document.getElementById('hero-total-views');
       if (!el) return;
 
+      // Naikkan hitungan lokal +1 setiap halaman dibuka/di-refresh
       const currentLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET), 10);
       const nextLocal = Math.max(OFFSET, currentLocal) + 1;
       localStorage.setItem(STORAGE_KEY, nextLocal);
       el.textContent = nextLocal.toLocaleString();
 
-      fetch('https://abacus.jasoncameron.dev/hit/samandpartners.com/visits')
+      // Sinkronkan dengan API Global (CounterAPI v1)
+      fetch('https://api.counterapi.dev/v1/samandpartners_2026/visits/up')
         .then(function (res) { return res.json(); })
         .then(function (data) {
-          if (data && typeof data.value === 'number') {
-            const totalGlobal = OFFSET + data.value;
-            el.textContent = totalGlobal.toLocaleString();
-            localStorage.setItem(STORAGE_KEY, totalGlobal);
+          if (data && typeof data.count === 'number') {
+            const totalGlobal = OFFSET + data.count;
+            if (totalGlobal >= nextLocal) {
+              el.textContent = totalGlobal.toLocaleString();
+              localStorage.setItem(STORAGE_KEY, totalGlobal);
+            }
           }
         })
         .catch(function () {});
