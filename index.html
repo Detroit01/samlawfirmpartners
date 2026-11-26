@@ -1036,50 +1036,60 @@
     }
 
     // 3. Live Total Views Counter (Starts at 56 -> 57 on initial load, increments +1 every refresh)
-    function initLiveViewsCounter() {
+    // Global Total Views Counter (Mulai dari 56 - Anti-Spam Refresh, Hanya Nambah per Sesi/Tab Baru)
+    document.addEventListener('DOMContentLoaded', function () {
       const OFFSET = 56;
-      const STORAGE_KEY = 'sam_views_live_56_v1';
+      const STORAGE_KEY = 'sam_views_session_56_v1';
+      const SESSION_FLAG = 'sam_visit_counted_tab';
       const el = document.getElementById('hero-total-views');
       if (!el) return;
 
-      // Always increment localStorage by +1 on every page load / F5 refresh
-      let currentLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET), 10);
-      if (isNaN(currentLocal) || currentLocal < OFFSET) {
-        currentLocal = OFFSET;
-      }
-      const nextLocal = currentLocal + 1;
-      localStorage.setItem(STORAGE_KEY, String(nextLocal));
-      el.textContent = nextLocal.toLocaleString();
+      // Cek apakah tab/sesi ini sudah pernah dihitung sebelumnya
+      const isNewSession = !sessionStorage.getItem(SESSION_FLAG);
 
-      // Sync with global CounterAPI in the background (updates if global count exceeds local)
-      fetch('https://api.counterapi.dev/v1/samandpartners_56_2026/visits/up', {
-        method: 'GET',
-        cache: 'no-store'
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('Network response was not ok');
-          return res.json();
-        })
-        .then(function (data) {
-          if (data && typeof data.count === 'number') {
-            const totalGlobal = OFFSET + data.count;
-            if (totalGlobal > nextLocal) {
-              el.textContent = totalGlobal.toLocaleString();
-              localStorage.setItem(STORAGE_KEY, String(totalGlobal));
+      if (isNewSession) {
+        // Tandai tab/sesi ini sudah dihitung (jadi kalau F5/refresh di tab ini, tidak nambah lagi)
+        sessionStorage.setItem(SESSION_FLAG, 'true');
+
+        // Naikkan hitungan lokal +1
+        const currentLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET), 10);
+        const nextLocal = Math.max(OFFSET, currentLocal) + 1;
+        localStorage.setItem(STORAGE_KEY, nextLocal);
+        el.textContent = nextLocal.toLocaleString();
+
+        // Hit endpoint UP di CounterAPI (tambah +1 secara global)
+        fetch('https://api.counterapi.dev/v1/samandpartners_session_2026/visits/up')
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data && typeof data.count === 'number') {
+              const totalGlobal = OFFSET + data.count;
+              if (totalGlobal >= nextLocal) {
+                el.textContent = totalGlobal.toLocaleString();
+                localStorage.setItem(STORAGE_KEY, totalGlobal);
+              }
             }
-          }
-        })
-        .catch(function () {
-          // Silently keep incremented local count if offline or blocked by ad-blocker
-        });
-    }
+          })
+          .catch(function () {});
+      } else {
+        // Kalau cuma refresh (F5) di tab yang sama: tampilkan angka terakhir tanpa menambah +1
+        const savedLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET + 1), 10);
+        el.textContent = savedLocal.toLocaleString();
 
-    // Run counter & restore saved language immediately on load
-    initLiveViewsCounter();
-    const savedLang = localStorage.getItem('sam_preferred_lang');
-    if (savedLang === 'id' || savedLang === 'en') {
-      setLanguage(savedLang);
-    }
+        // Ambil angka global terbaru saja (tanpa /up)
+        fetch('https://api.counterapi.dev/v1/samandpartners_session_2026/visits/')
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data && typeof data.count === 'number') {
+              const totalGlobal = OFFSET + data.count;
+              if (totalGlobal >= savedLocal) {
+                el.textContent = totalGlobal.toLocaleString();
+                localStorage.setItem(STORAGE_KEY, totalGlobal);
+              }
+            }
+          })
+          .catch(function () {});
+      }
+    });
 
     // 4. Footer Year & Mobile Menu
     document.getElementById('year').textContent = new Date().getFullYear();
