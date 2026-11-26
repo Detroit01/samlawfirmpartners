@@ -171,7 +171,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>
           <span data-i18n="total_views_lbl">Total Views:</span>
-          <strong id="hero-total-views" class="text-brass-400 font-bold tracking-wide">438</strong>
+          <strong id="hero-total-views" class="text-brass-400 font-bold tracking-wide">57</strong>
         </div>
       </div>
 
@@ -1035,10 +1035,10 @@
       localStorage.setItem('sam_preferred_lang', lang);
     }
 
-    // 3. Live Total Views Counter (Starts at 63 -> 64 on initial load, increments +1 every refresh)
+    // 3. Live Total Views Counter (Starts at 56 -> 57 on initial load, increments +1 every refresh)
     function initLiveViewsCounter() {
-      const OFFSET = 63;
-      const STORAGE_KEY = 'sam_views_live_counter_v1';
+      const OFFSET = 56;
+      const STORAGE_KEY = 'sam_views_live_56_v1';
       const el = document.getElementById('hero-total-views');
       if (!el) return;
 
@@ -1052,7 +1052,7 @@
       el.textContent = nextLocal.toLocaleString();
 
       // Sync with global CounterAPI in the background (updates if global count exceeds local)
-      fetch('https://api.counterapi.dev/v1/samandpartners_2026/visits/up', {
+      fetch('https://api.counterapi.dev/v1/samandpartners_56_2026/visits/up', {
         method: 'GET',
         cache: 'no-store'
       })
