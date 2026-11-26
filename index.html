@@ -785,31 +785,42 @@
       link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
 
-// Terjemahan label Total Views (EN & ID)
+    // Terjemahan label Total Views (EN & ID)
     translations.en.total_views_lbl = 'Total Views:';
     translations.id.total_views_lbl = 'Total Kunjungan:';
 
-    // Global Real-Time Views Counter API (Mulai dari 437)
+    // Global Real-Time Views Counter (Anti-0 & Anti-Adblock)
     (async function initGlobalViewsCounter() {
       const viewEl = document.getElementById('hero-total-views');
       if (!viewEl) return;
 
       const OFFSET = 437;
+      const STORAGE_KEY = 'sam_page_views_v2';
 
+      // 1. Langsung tampilkan angka lokal dulu agar tidak pernah stuck di 0
+      const savedLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET), 10);
+      const localNext = Math.max(OFFSET, savedLocal) + 1;
+      localStorage.setItem(STORAGE_KEY, localNext);
+      viewEl.textContent = localNext.toLocaleString();
+
+      // 2. Sinkronkan dengan API global di latar belakang
       try {
-        const res = await fetch('https://api.counterapi.dev/v1/samandpartners-com/pageviews/up');
-        const data = await res.json();
-        if (data && typeof data.count === 'number') {
-          const total = OFFSET + data.count;
-          viewEl.textContent = total.toLocaleString();
-          localStorage.setItem('sam_page_views_fallback', total);
+        const res = await fetch('https://api.counterapi.dev/v1/samandpartners-com/pageviews/up', {
+          cache: 'no-store'
+        });
+        if (!res.ok) return;
+        const json = await res.json();
+        const apiCount = typeof json.count === 'number'
+          ? json.count
+          : (json.data && typeof json.data.up_count === 'number' ? json.data.up_count : null);
+
+        if (apiCount !== null) {
+          const globalTotal = OFFSET + apiCount;
+          viewEl.textContent = globalTotal.toLocaleString();
+          localStorage.setItem(STORAGE_KEY, globalTotal);
         }
-      } catch (err) {
-        // Fallback otomatis jika API sedang lambat
-        const saved = parseInt(localStorage.getItem('sam_page_views_fallback') || String(OFFSET), 10);
-        const nextVal = Math.max(OFFSET, saved) + 1;
-        localStorage.setItem('sam_page_views_fallback', nextVal);
-        viewEl.textContent = nextVal.toLocaleString();
+      } catch (e) {
+        // Tetap aman memakai angka localNext di atas jika diblokir ad-blocker
       }
     })();
 
