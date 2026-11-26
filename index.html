@@ -170,7 +170,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>
           <span data-i18n="total_views_lbl">Total Views:</span>
-          <strong id="hero-total-views" class="text-brass-400 font-bold tracking-wide">0</strong>
+          <strong id="hero-total-views" class="text-brass-400 font-bold tracking-wide">438</strong>
         </div>
       </div>
 
@@ -789,40 +789,29 @@
     translations.en.total_views_lbl = 'Total Views:';
     translations.id.total_views_lbl = 'Total Kunjungan:';
 
-    // Global Real-Time Views Counter (Anti-0 & Anti-Adblock)
-    (async function initGlobalViewsCounter() {
-      const viewEl = document.getElementById('hero-total-views');
-      if (!viewEl) return;
-
+    // 1. Global Total Views Counter (Mulai dari 437)
+    document.addEventListener('DOMContentLoaded', function () {
       const OFFSET = 437;
-      const STORAGE_KEY = 'sam_page_views_v2';
+      const STORAGE_KEY = 'sam_views_final';
+      const el = document.getElementById('hero-total-views');
+      if (!el) return;
 
-      // 1. Langsung tampilkan angka lokal dulu agar tidak pernah stuck di 0
-      const savedLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET), 10);
-      const localNext = Math.max(OFFSET, savedLocal) + 1;
-      localStorage.setItem(STORAGE_KEY, localNext);
-      viewEl.textContent = localNext.toLocaleString();
+      const currentLocal = parseInt(localStorage.getItem(STORAGE_KEY) || String(OFFSET), 10);
+      const nextLocal = Math.max(OFFSET, currentLocal) + 1;
+      localStorage.setItem(STORAGE_KEY, nextLocal);
+      el.textContent = nextLocal.toLocaleString();
 
-      // 2. Sinkronkan dengan API global di latar belakang
-      try {
-        const res = await fetch('https://api.counterapi.dev/v1/samandpartners-com/pageviews/up', {
-          cache: 'no-store'
-        });
-        if (!res.ok) return;
-        const json = await res.json();
-        const apiCount = typeof json.count === 'number'
-          ? json.count
-          : (json.data && typeof json.data.up_count === 'number' ? json.data.up_count : null);
-
-        if (apiCount !== null) {
-          const globalTotal = OFFSET + apiCount;
-          viewEl.textContent = globalTotal.toLocaleString();
-          localStorage.setItem(STORAGE_KEY, globalTotal);
-        }
-      } catch (e) {
-        // Tetap aman memakai angka localNext di atas jika diblokir ad-blocker
-      }
-    })();
+      fetch('https://abacus.jasoncameron.dev/hit/samandpartners.com/visits')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data && typeof data.value === 'number') {
+            const totalGlobal = OFFSET + data.value;
+            el.textContent = totalGlobal.toLocaleString();
+            localStorage.setItem(STORAGE_KEY, totalGlobal);
+          }
+        })
+        .catch(function () {});
+    });
 
     // Practice Areas Tab Switcher
     function switchServiceTab(tab) {
@@ -990,6 +979,7 @@
     // Bilingual Dictionary (EN & ID)
     const translations = {
       en: {
+        total_views_lbl: 'Total Views:',
         nav_team: 'Legal Team',
         nav_why: 'Why Choose Us',
         nav_services: 'Practice Areas',
@@ -1015,14 +1005,6 @@
         p4_role: 'Senior Associates',
         p5_name: 'Rayhan Boas Tamar Y. S, S.H.',
         p5_role: 'Senior Associates',
-        cta_label: 'Contact Information',
-        cta_headline: "Don't Wait for a Legal Issue to Become More Complex, Contact Us Immediately to Discuss Your Legal Needs or Challenges with Our Team to Map Out the Right Next Steps.",
-        cta_btn_now: 'Consult Now!!',
-        cnt_web_lbl: 'Website',
-        cnt_email_lbl: 'Email',
-        cnt_hours_lbl: 'Office Hours',
-        cnt_hours_val: 'Monday to Friday, 09:00 AM to 05:00 PM WIB',
-        footer_priv: 'Strict Client Confidentiality • Protected Communication',
         commit_label: 'Our Commitments',
         commit_quote: '“Every case is handled directly by licensed advocates, never passed off without oversight. We combine thorough legal research with honest risk assessments so you know where you stand before making any decision.”',
         why_label: 'Why Choose Us?',
@@ -1106,12 +1088,14 @@
         cta_label: 'Contact Information',
         cta_headline: "Don't Wait for a Legal Issue to Become More Complex, Contact Us Immediately to Discuss Your Legal Needs or Challenges with Our Team to Map Out the Right Next Steps.",
         cta_btn_now: 'Consult Now!!',
+        cnt_web_lbl: 'Website',
         cnt_email_lbl: 'Email',
         cnt_hours_lbl: 'Office Hours',
         cnt_hours_val: 'Monday to Friday, 09:00 AM to 05:00 PM WIB',
         footer_priv: 'Strict Client Confidentiality • Protected Communication'
       },
       id: {
+        total_views_lbl: 'Total Kunjungan:',
         nav_team: 'Tim Hukum',
         nav_why: 'Keunggulan Kami',
         nav_services: 'Bidang Praktik',
@@ -1221,13 +1205,6 @@
         cta_headline: 'Jangan Tunggu Masalah Hukum Semakin Rumit, Hubungi Kami Segera untuk Mendiskusikan Kebutuhan atau Tantangan Hukum Anda Bersama Tim Kami guna Memetakan Langkah Selanjutnya.',
         cta_btn_now: 'Consult Now!!',
         cnt_web_lbl: 'Website',
-        cnt_email_lbl: 'Email',
-        cnt_hours_lbl: 'Jam Operasional',
-        cnt_hours_val: 'Senin sampai Jumat, 09.00 hingga 17.00 WIB',
-        footer_priv: 'Kerahasiaan Klien Terjamin Ketat • Komunikasi Terproteksi',
-        cta_label: 'Informasi Kontak',
-        cta_headline: 'Jangan Tunggu Masalah Hukum Semakin Rumit, Hubungi Kami Segera untuk Mendiskusikan Kebutuhan atau Tantangan Hukum Anda Bersama Tim Kami guna Memetakan Langkah Selanjutnya.',
-        cta_btn_now: 'Consult Now!!',
         cnt_email_lbl: 'Email',
         cnt_hours_lbl: 'Jam Operasional',
         cnt_hours_val: 'Senin sampai Jumat, 09.00 hingga 17.00 WIB',
