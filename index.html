@@ -785,20 +785,31 @@
       link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
 
-    // Tambahkan terjemahan label Total Views ke dictionary
+// Terjemahan label Total Views (EN & ID)
     translations.en.total_views_lbl = 'Total Views:';
     translations.id.total_views_lbl = 'Total Kunjungan:';
 
-    // Jalankan penghitung Total Views
-    (function initHeroViews() {
-      const VIEWS_KEY = 'sam_page_views_v1';
-      let currentViews = parseInt(localStorage.getItem(VIEWS_KEY) || '128', 10);
-      currentViews += 1;
-      localStorage.setItem(VIEWS_KEY, currentViews);
-
+    // Global Real-Time Views Counter API (Mulai dari 437)
+    (async function initGlobalViewsCounter() {
       const viewEl = document.getElementById('hero-total-views');
-      if (viewEl) {
-        viewEl.textContent = currentViews.toLocaleString();
+      if (!viewEl) return;
+
+      const OFFSET = 437;
+
+      try {
+        const res = await fetch('https://api.counterapi.dev/v1/samandpartners-com/pageviews/up');
+        const data = await res.json();
+        if (data && typeof data.count === 'number') {
+          const total = OFFSET + data.count;
+          viewEl.textContent = total.toLocaleString();
+          localStorage.setItem('sam_page_views_fallback', total);
+        }
+      } catch (err) {
+        // Fallback otomatis jika API sedang lambat
+        const saved = parseInt(localStorage.getItem('sam_page_views_fallback') || String(OFFSET), 10);
+        const nextVal = Math.max(OFFSET, saved) + 1;
+        localStorage.setItem('sam_page_views_fallback', nextVal);
+        viewEl.textContent = nextVal.toLocaleString();
       }
     })();
 
